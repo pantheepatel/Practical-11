@@ -1,0 +1,71 @@
+@model Task2.Models.UserModel
+
+<div>
+    <h4>UserModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <button type="button" class="btn btn-primary" id="editUser" data-id="@Model.Id">Edit</button>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script>
+    $(document).ready(function () {
+        $('#editUser').click(function () {
+            var userId = $(this).data('id');
+
+            $.ajax({
+                url: '/Home/Edit/' + userId,
+                type: 'GET',
+                success: function (data) {
+                    $('#modalContainer').html(data); // Load Edit form in modal
+                },
+                error: function () {
+                    alert("An error occurred while loading the edit form.");
+                }
+            });
+        });
+    });
+</script>

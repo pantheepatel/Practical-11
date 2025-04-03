@@ -1,0 +1,16 @@
+@model IEnumerable<Task2.Models.UserModel>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Email</td>
+        <td>@item.DateOfBirth</td>
+        <td>@item.Address</td>
+        <td>@item.City</td>
+        <td>
+            <button onclick="loadEditForm('@item.Id')">Edit</button>
+            <button onclick="loadDetails('@item.Id')">Details</button>
+            <button onclick="loadDeleteForm('@item.Id')">Delete</button>
+        </td>
+    </tr>
+}

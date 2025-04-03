@@ -1,0 +1,62 @@
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>User Management</h2>
+<button onclick="loadCreateForm()">Add New User</button>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date of Birth</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="userTableBody">
+        <!-- User list will be loaded here using AJAX -->
+    </tbody>
+</table>
+
+<!-- Partial View Container (Modal or Div for dynamic loading) -->
+<div id="modalContainer"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        loadUserList();
+    });
+
+    function loadUserList() {
+        $.get('/Home/List', function (data) {
+            $('#userTableBody').html(data);
+        });
+    }
+
+    function loadCreateForm() {
+        $.get('/Home/Create', function (data) {
+            $('#modalContainer').html(data);
+        });
+    }
+
+    function loadEditForm(id) {
+        $.get('/Home/Edit/' + id, function (data) {
+            $('#modalContainer').html(data);
+        });
+    }
+
+    function loadDeleteForm(id) {
+        $.get('/Home/Delete/' + id, function (data) {
+            $('#modalContainer').html(data);
+        });
+    }
+
+    function loadDetails(id) {
+        $.get('/Home/View/' + id, function (data) {
+            $('#modalContainer').html(data);
+        });
+    }
+</script>
