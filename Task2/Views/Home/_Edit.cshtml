@@ -47,14 +47,14 @@
     </div>
     @Html.HiddenFor(model => model.Id)
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" id="saveEdit" />
+        <div class="col-md-offset-2 col-md-10 my-2">
+            <input type="submit" value="Save" class="btn btn-primary" id="saveEdit" />
         </div>
     </div>
 </div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <span class="text-primary text-decoration-underline" id="loadUserList">Back to List</span>
 </div>
 
 <script>
@@ -81,6 +81,19 @@
                     alert("An error occurred while creating the user.");
                 }
             });
+        });
+        $('#loadUserList').click(function () {
+            $.ajax({
+                url: '/Home/List',
+                type: 'GET',
+                success: function (data) {
+                    $('#userTableBody').html(data); // Refresh user list
+                    $('#modalContainer').html(''); // Close the modal
+                },
+                error: function () {
+                    alert("An error occurred while loading the user list.");
+                }
+            })
         });
     });
 </script>

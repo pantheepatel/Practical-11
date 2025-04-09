@@ -53,7 +53,7 @@
 
         <div class="form-actions no-color">
             <button type="button" class="btn btn-danger" id="confirmDelete" data-id="@Model.Id">Delete</button>
-            @Html.ActionLink("Back to List", "Index")
+            <span class="text-primary text-decoration-underline" id="loadUserList">Back to List</span>
         </div>
     }
 </div>
@@ -75,6 +75,19 @@
                     }
                 });
             }
+        });
+        $('#loadUserList').click(function () {
+            $.ajax({
+                url: '/Home/List',
+                type: 'GET',
+                success: function (data) {
+                    $('#userTableBody').html(data); // Refresh user list
+                    $('#modalContainer').html(''); // Close the modal
+                },
+                error: function () {
+                    alert("An error occurred while loading the user list.");
+                }
+            })
         });
     });
 </script>

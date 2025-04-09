@@ -48,7 +48,7 @@
 </div>
 <p>
     <button type="button" class="btn btn-primary" id="editUser" data-id="@Model.Id">Edit</button>
-    @Html.ActionLink("Back to List", "Index")
+    <span class="text-primary text-decoration-underline" id="loadUserList">Back to List</span>
 </p>
 
 <script>
@@ -66,6 +66,19 @@
                     alert("An error occurred while loading the edit form.");
                 }
             });
+        });
+        $('#loadUserList').click(function () {
+            $.ajax({
+                url: '/Home/List',
+                type: 'GET',
+                success: function (data) {
+                    $('#userTableBody').html(data); // Refresh user list
+                    $('#modalContainer').html(''); // Close the modal
+                },
+                error: function () {
+                    alert("An error occurred while loading the user list.");
+                }
+            })
         });
     });
 </script>
